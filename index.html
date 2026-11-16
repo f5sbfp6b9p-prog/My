@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#007AFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Счётчик">
+<title>Счётчик</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:100vh; background:#f2f2f7; color:#1c1c1e; gap:20px; padding:20px;
+  user-select:none;
+}
+h1 { font-size:22px; font-weight:500; color:#8e8e93; }
+#count { font-size:96px; font-weight:700; line-height:1; }
+button {
+  font-size:20px; font-weight:600; padding:18px 40px; border:none;
+  border-radius:16px; cursor:pointer; transition:transform .08s;
+  width:100%; max-width:280px;
+}
+button:active { transform:scale(.96); }
+#btn { background:#007AFF; color:#fff; }
+#reset { background:#e5e5ea; color:#1c1c1e; font-size:16px; padding:14px 32px; }
+</style>
+</head>
+<body>
+  <h1>Нажатий</h1>
+  <div id="count">0</div>
+  <button id="btn">Нажми меня</button>
+  <button id="reset">Сброс</button>
+<script>
+const countEl = document.getElementById('count');
+const btn = document.getElementById('btn');
+const reset = document.getElementById('reset');
+let count = Number(localStorage.getItem('count') || 0);
+countEl.textContent = count;
+btn.addEventListener('click', () => {
+  count++; countEl.textContent = count;
+  localStorage.setItem('count', count);
+  if (navigator.vibrate) navigator.vibrate(10);
+});
+reset.addEventListener('click', () => {
+  count = 0; countEl.textContent = count;
+  localStorage.setItem('count', count);
+});
+</script>
+</body>
+</html>
